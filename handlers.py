@@ -7,13 +7,20 @@ from settings import WELCOME_MESSAGE, TELEGRAM_SUPPORT_CHAT_ID, REPLY_TO_THIS_ME
 def start(update, context):
     update.message.reply_text(WELCOME_MESSAGE)
 
-    user_info = update.message.from_user.to_dict()
+    # user_info = update.message.from_user.to_dict()
+    from_user = update.message.from_user;
+    user_info = from_user.first_name;
+    if from_user.last_name:
+        user_info = user_info + " " + from_user.last_name
+    if from_user.username:
+        user_info = user_info + " [" + from_user.username + " - " + from_user.id + "]"
+    elif
+        user_info = user_info + " [" + from_user.id + "]"
+
 
     context.bot.send_message(
         chat_id=TELEGRAM_SUPPORT_CHAT_ID,
-        text=f"""
-📞 Connected {user_info}.
-        """,
+        text=f"📞 Новый собеседник: {user_info}",
     )
 
 
