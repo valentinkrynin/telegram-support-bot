@@ -14,9 +14,9 @@ def start(update, context):
     if from_user.last_name:
         user_info = f"{user_info} {from_user.last_name}"
     if from_user.username:
-        user_info = f"{user_info} [{from_user.username} - {from_user.id}]"
+        user_info = f"{user_info} ({from_user.username} - {from_user.id})"
     else:
-        user_info = f"{user_info} [{from_user.id}]"
+        user_info = f"{user_info} ({from_user.id})"
 
     # escape html tags from user_info for sending correct text with parse_mode="HTML"
     user_info = html.escape(user_info)
@@ -46,7 +46,7 @@ def forward_to_chat(update, context):
     context.bot.send_message(
         chat_id=TELEGRAM_SUPPORT_CHAT_ID,
         reply_to_message_id=forwarded.message_id,
-        text=f'{update.message.from_user.id}\n{REPLY_TO_THIS_MESSAGE}'
+        text=f'{update.message.from_user.id}: {REPLY_TO_THIS_MESSAGE}'
     )
 
 
@@ -72,7 +72,7 @@ def forward_to_user(update, context):
         user_id = update.message.reply_to_message.forward_from.id
     elif REPLY_TO_THIS_MESSAGE in update.message.reply_to_message.text:
         try:
-            user_id = int(update.message.reply_to_message.text.split('\n')[0])
+            user_id = int(update.message.reply_to_message.text.split(':')[0])
         except ValueError:
             user_id = None
     if user_id:
