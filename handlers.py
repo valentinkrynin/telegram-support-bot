@@ -17,10 +17,14 @@ def start(update, context):
     else:
         user_info = f"{user_info} [{from_user.id}]"
 
+    if from_user.is_bot:
+        text = f"🤖 Новый собеседник - бот: <b>{user_info}</b>"
+    else:
+        text = f"💬 Новый собеседник: <b>{user_info}</b>"
 
     context.bot.send_message(
         chat_id=TELEGRAM_SUPPORT_CHAT_ID,
-        text=f"📞 Новый собеседник: {user_info}",
+        text=text,
     )
 
 
