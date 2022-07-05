@@ -14,7 +14,7 @@ def start(update, context):
         user_info = f"{user_info} {from_user.last_name}"
     if from_user.username:
         user_info = f"{user_info} [{from_user.username} - {from_user.id}]"
-    else
+    else:
         user_info = f"{user_info} [{from_user.id}]"
 
 
