@@ -11,11 +11,11 @@ def start(update, context):
     from_user = update.message.from_user;
     user_info = from_user.first_name;
     if from_user.last_name:
-        user_info = user_info + " " + from_user.last_name
+        user_info = f"{user_info} {from_user.last_name}"
     if from_user.username:
-        user_info = user_info + " [" + from_user.username + " - " + from_user.id + "]"
-    elif
-        user_info = user_info + " [" + from_user.id + "]"
+        user_info = f"{user_info} [{from_user.username} - {from_user.id}]"
+    else
+        user_info = f"{user_info} [{from_user.id}]"
 
 
     context.bot.send_message(
