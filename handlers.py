@@ -10,20 +10,20 @@ def start(update, context):
 
     # user_info = update.message.from_user.to_dict()
     from_user = update.message.from_user
-    user_info = f"\n• имя: {from_user.first_name}"
+    user_info = f"\n• имя - {from_user.first_name}"
     if from_user.last_name:
         user_info = f"{user_info} {from_user.last_name}"
     if from_user.username:
-        user_info = f"{user_info} \n• псевдоним: @{from_user.username}"
-    user_info = f"{user_info} \n• id: {from_user.id}"
+        user_info = f"{user_info} \n• псевдоним - @{from_user.username}"
+    user_info = f"{user_info} \n• id - {from_user.id}"
 
     # escape html tags from user_info for sending correct text with parse_mode="HTML"
     user_info = html.escape(user_info)
 
     if from_user.is_bot:
-        text = f"🤖 <b>Новый собеседник-бот:</b>{user_info}"
+        text = f"🤖 <b>Новый собеседник-бот:</b>\n{user_info}"
     else:
-        text = f"💬 <b>Новый собеседник:</b>{user_info}"
+        text = f"💬 <b>Новый собеседник:</b>\n{user_info}"
 
     context.bot.send_message(
         chat_id=TELEGRAM_SUPPORT_CHAT_ID,
