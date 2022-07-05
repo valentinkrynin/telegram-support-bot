@@ -26,12 +26,12 @@ def forward_to_chat(update, context):
         'from': {'id': 49820636, 'first_name': 'Daniil', 'is_bot': False, 'last_name': 'Okhlopkov', 'username': 'danokhlopkov', 'language_code': 'en'}
     }"""
     forwarded = update.message.forward(chat_id=TELEGRAM_SUPPORT_CHAT_ID)
-    """if not forwarded.forward_from:"""
-        context.bot.send_message(
-            chat_id=TELEGRAM_SUPPORT_CHAT_ID,
-            reply_to_message_id=forwarded.message_id,
-            text=f'{update.message.from_user.id}\n{REPLY_TO_THIS_MESSAGE}'
-        )
+    # if not forwarded.forward_from:
+    context.bot.send_message(
+        chat_id=TELEGRAM_SUPPORT_CHAT_ID,
+        reply_to_message_id=forwarded.message_id,
+        text=f'{update.message.from_user.id}\n{REPLY_TO_THIS_MESSAGE}'
+    )
 
 
 def forward_to_user(update, context):
