@@ -9,14 +9,13 @@ def start(update, context):
     update.message.reply_text(WELCOME_MESSAGE)
 
     # user_info = update.message.from_user.to_dict()
-    from_user = update.message.from_user;
-    user_info = from_user.first_name;
+    from_user = update.message.from_user
+    user_info = f"\n- имя: {from_user.first_name}"
     if from_user.last_name:
         user_info = f"{user_info} {from_user.last_name}"
     if from_user.username:
-        user_info = f"{user_info} ({from_user.username} - {from_user.id})"
-    else:
-        user_info = f"{user_info} ({from_user.id})"
+        user_info = f"{user_info} \n- псевдоним: @{from_user.username}"
+    user_info = f"{user_info} \n- id: {from_user.id}"
 
     # escape html tags from user_info for sending correct text with parse_mode="HTML"
     user_info = html.escape(user_info)
@@ -42,7 +41,7 @@ def forward_to_chat(update, context):
         'from': {'id': 49820636, 'first_name': 'Daniil', 'is_bot': False, 'last_name': 'Okhlopkov', 'username': 'danokhlopkov', 'language_code': 'en'}
     }"""
     forwarded = update.message.forward(chat_id=TELEGRAM_SUPPORT_CHAT_ID)
-    # if not forwarded.forward_from:
+    if not forwarded.forward_from:
     context.bot.send_message(
         chat_id=TELEGRAM_SUPPORT_CHAT_ID,
         reply_to_message_id=forwarded.message_id,
