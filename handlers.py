@@ -1,4 +1,5 @@
-import os
+import os, html
+
 from telegram.ext import CommandHandler, MessageHandler, Filters
 
 from settings import WELCOME_MESSAGE, TELEGRAM_SUPPORT_CHAT_ID, REPLY_TO_THIS_MESSAGE, WRONG_REPLY
@@ -17,8 +18,11 @@ def start(update, context):
     else:
         user_info = f"{user_info} [{from_user.id}]"
 
+    # escape html tags from user_info for sending correct text with parse_mode="HTML"
+    user_info = html.escape(user_info)
+
     if from_user.is_bot:
-        text = f"🤖 Новый собеседник - бот: <b>{user_info}</b>"
+        text = f"🤖 Новый собеседник-бот: <b>{user_info}</b>"
     else:
         text = f"💬 Новый собеседник: <b>{user_info}</b>"
 
