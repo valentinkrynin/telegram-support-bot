@@ -32,6 +32,22 @@ def start(update, context):
     )
 
 
+def get_ban_users():
+    filename = 'banned.txt'
+    try:
+        file = open(filename, 'r')
+        ban_users = file.read()
+        if ban_users:
+            ban_users = ban_users.split("\n")
+        else:
+            ban_users = []
+    except FileNotFoundError:
+        file = open(filename, 'x')
+        ban_users = []
+
+    return ban_users
+
+
 def forward_to_chat(update, context):
     """{ 
         'message_id': 5, 
@@ -40,6 +56,7 @@ def forward_to_chat(update, context):
         'text': 'TEST QOO', 'entities': [], 'caption_entities': [], 'photo': [], 'new_chat_members': [], 'new_chat_photo': [], 'delete_chat_photo': False, 'group_chat_created': False, 'supergroup_chat_created': False, 'channel_chat_created': False, 
         'from': {'id': 49820636, 'first_name': 'Daniil', 'is_bot': False, 'last_name': 'Okhlopkov', 'username': 'danokhlopkov', 'language_code': 'en'}
     }"""
+    ban_users = get_ban_users()
     forwarded = update.message.forward(chat_id=TELEGRAM_SUPPORT_CHAT_ID)
     if not forwarded.forward_from:
         context.bot.send_message(
